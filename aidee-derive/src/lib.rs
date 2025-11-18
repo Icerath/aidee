@@ -17,6 +17,7 @@ pub fn derive_id(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
                 self.0.try_into().unwrap()
             }
         }
+        #[allow(clippy::expl_impl_clone_on_copy)]
         impl ::core::clone::Clone for #ident {
             fn clone(&self) -> Self {
                 *self
