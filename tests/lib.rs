@@ -1,0 +1,29 @@
+use aidee::*;
+
+#[derive(Debug, Id, PartialEq, Eq)]
+struct TestId(u32);
+
+#[test]
+#[cfg(feature = "alloc")]
+fn test_vec() {
+    let mut blocks = IdVec::<TestId, _>::new();
+
+    let a = blocks.push("a");
+    let b = blocks.push("b");
+    let c = blocks.push("c");
+
+    assert_eq!(blocks[a], "a");
+    assert_eq!(blocks[b], "b");
+    assert_eq!(blocks[c], "c");
+
+    blocks.ids().eq((0..3).map(TestId));
+    blocks.values().eq(&["a", "b", "c"]);
+
+    assert_eq!(&blocks.values().copied().collect::<IdVec<TestId, _>>(), &blocks);
+}
+
+#[test]
+fn test_slice() {
+    let slice: &IdSlice<TestId, _> = IdSlice::from_slice(&[1, 2, 3]);
+    assert!(slice.ids().map(|id| slice[id]).eq([1, 2, 3]));
+}
