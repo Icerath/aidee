@@ -33,6 +33,11 @@ impl<K: Id, V> IdVec<K, V> {
         self.raw.push(value);
         id
     }
+    pub fn push_with<F: FnOnce(K) -> V>(&mut self, f: F) -> K {
+        let id = self.len_id();
+        self.raw.push(f(id));
+        id
+    }
     pub fn pop(&mut self) -> Option<V> {
         self.raw.pop()
     }
