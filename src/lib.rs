@@ -39,3 +39,30 @@ impl Id for usize {
         self
     }
 }
+
+impl Id for u32 {
+    fn from_index(index: usize) -> Self {
+        index.try_into().unwrap()
+    }
+    fn index(self) -> usize {
+        self.try_into().unwrap()
+    }
+}
+
+impl Id for u16 {
+    fn from_index(index: usize) -> Self {
+        index.try_into().unwrap()
+    }
+    fn index(self) -> usize {
+        self.into()
+    }
+}
+
+impl Id for u8 {
+    fn from_index(index: usize) -> Self {
+        index.try_into().unwrap()
+    }
+    fn index(self) -> usize {
+        self.into()
+    }
+}
