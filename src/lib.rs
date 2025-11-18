@@ -42,16 +42,16 @@ impl Id for usize {
 
 impl Id for u32 {
     fn from_index(index: usize) -> Self {
-        index.try_into().unwrap()
+        index as _
     }
     fn index(self) -> usize {
-        self.try_into().unwrap()
+        self as _
     }
 }
 
 impl Id for u16 {
     fn from_index(index: usize) -> Self {
-        index.try_into().unwrap()
+        index as _
     }
     fn index(self) -> usize {
         self.into()
@@ -60,7 +60,7 @@ impl Id for u16 {
 
 impl Id for u8 {
     fn from_index(index: usize) -> Self {
-        index.try_into().unwrap()
+        index as _
     }
     fn index(self) -> usize {
         self.into()
