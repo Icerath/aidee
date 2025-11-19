@@ -27,3 +27,18 @@ fn test_slice() {
     let slice: &IdSlice<TestId, _> = IdSlice::from_slice(&[1, 2, 3]);
     assert!(slice.ids().map(|id| slice[id]).eq([1, 2, 3]));
 }
+
+#[test]
+#[cfg(feature = "alloc")]
+fn test_bitvec() {
+    let mut visited = IdBitVec::new();
+    let a: TestId = visited.push(true);
+    let b = visited.push(true);
+    let c = visited.push(false);
+
+    assert!(visited[a]);
+    assert!(visited[b]);
+    assert!(!visited[c]);
+
+    visited.ids().eq((0..3).map(TestId));
+}

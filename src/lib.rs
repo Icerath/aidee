@@ -8,6 +8,8 @@ extern crate alloc;
 pub mod slice;
 
 #[cfg(feature = "alloc")]
+pub mod bitvec;
+#[cfg(feature = "alloc")]
 pub mod vec;
 
 use core::marker::PhantomData;
@@ -15,6 +17,8 @@ use core::marker::PhantomData;
 pub use aidee_derive::Id;
 pub use slice::IdSlice;
 
+#[cfg(feature = "alloc")]
+pub use bitvec::IdBitVec;
 #[cfg(feature = "alloc")]
 pub use vec::IdVec;
 

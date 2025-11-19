@@ -5,7 +5,8 @@ edition = "2024"
 
 [dependencies]
 aidee-derive = { version = "0.1", path = "./aidee-derive" }
+bitvec = { version = "1.0.1", default-features = false }
 
 [features]
 default = ["alloc"]
-alloc = []
+alloc = ["bitvec/alloc"]
