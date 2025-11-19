@@ -25,6 +25,12 @@ impl<K: Id, V> IdVec<K, V> {
     pub const fn from_vec(vec: Vec<V>) -> Self {
         Self { raw: vec, _marker: PhantomData }
     }
+    pub fn with_capacity(capacity: usize) -> Self {
+        Self::from_vec(Vec::with_capacity(capacity))
+    }
+    pub fn reserve(&mut self, additional: usize) {
+        self.raw.reserve(additional);
+    }
     pub const fn capacity(&self) -> usize {
         self.raw.capacity()
     }
@@ -44,6 +50,9 @@ impl<K: Id, V> IdVec<K, V> {
     pub fn retain(&mut self, mut f: impl FnMut(K, &mut V) -> bool) {
         let mut id = K::from_index(0);
         self.raw.retain_mut(|value| f(id.incr(), value));
+    }
+    pub fn clear(&mut self) {
+        self.raw.clear();
     }
     pub const fn as_slice(&self) -> &IdSlice<K, V> {
         IdSlice::from_slice(self.raw.as_slice())
