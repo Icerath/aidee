@@ -36,7 +36,7 @@ impl<K: Id, V> IdSlice<K, V> {
     pub const fn is_empty(&self) -> bool {
         self.raw.is_empty()
     }
-    pub fn ids(&self) -> impl Iterator<Item = K> {
+    pub fn ids(&self) -> impl Iterator<Item = K> + use<K, V> {
         (0..self.raw.len()).map(K::from_index)
     }
     pub fn values(&self) -> core::slice::Iter<'_, V> {

@@ -60,7 +60,7 @@ impl<K: Id> IdBitVec<K> {
     pub fn is_empty(&self) -> bool {
         self.raw.is_empty()
     }
-    pub fn ids(&self) -> impl Iterator<Item = K> {
+    pub fn ids(&self) -> impl Iterator<Item = K> + use<K> {
         (0..self.len()).map(K::from_index)
     }
     pub fn values(&self) -> impl Iterator<Item = bool> {
