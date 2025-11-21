@@ -5,6 +5,7 @@
 #[cfg(feature = "alloc")]
 extern crate alloc;
 
+pub mod option;
 pub mod slice;
 
 #[cfg(feature = "alloc")]
@@ -26,6 +27,7 @@ pub use vec::IdVec;
 type Boo<K> = PhantomData<fn(&K)>;
 
 pub trait Id: Copy {
+    const INVALID_REPR: Self;
     fn from_index(index: usize) -> Self;
     fn index(self) -> usize;
     fn incr(&mut self) -> Self {
@@ -36,6 +38,7 @@ pub trait Id: Copy {
 }
 
 impl Id for usize {
+    const INVALID_REPR: Self = Self::MAX;
     fn from_index(index: usize) -> Self {
         index
     }
@@ -45,6 +48,8 @@ impl Id for usize {
 }
 
 impl Id for u32 {
+    const INVALID_REPR: Self = Self::MAX;
+
     fn from_index(index: usize) -> Self {
         index as _
     }
@@ -54,6 +59,7 @@ impl Id for u32 {
 }
 
 impl Id for u16 {
+    const INVALID_REPR: Self = Self::MAX;
     fn from_index(index: usize) -> Self {
         index as _
     }
@@ -63,6 +69,8 @@ impl Id for u16 {
 }
 
 impl Id for u8 {
+    const INVALID_REPR: Self = Self::MAX;
+
     fn from_index(index: usize) -> Self {
         index as _
     }

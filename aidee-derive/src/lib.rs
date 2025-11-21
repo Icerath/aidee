@@ -13,6 +13,7 @@ pub fn derive_id(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
 
     quote! {
         impl aidee::Id for #ident {
+            const INVALID_REPR: Self = Self(#field::INVALID_REPR);
             #[track_caller]
             fn from_index(index: usize) -> Self {
                 Self(<#field>::from_index(index))
