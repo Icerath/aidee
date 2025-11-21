@@ -25,6 +25,7 @@ fn test_vec() {
 #[test]
 fn test_slice() {
     let slice: &IdSlice<TestId, _> = IdSlice::from_slice(&[1, 2, 3]);
+    assert_eq!(&slice[TestId(0)..TestId(2)], &[1, 2]);
     assert!(slice.ids().map(|id| slice[id]).eq([1, 2, 3]));
 }
 

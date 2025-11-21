@@ -4,7 +4,10 @@ use core::{
     ops::{Deref, DerefMut, Index, IndexMut},
 };
 
-use crate::{Id, slice::IdSlice};
+use crate::{
+    Id,
+    slice::{IdSlice, IdSliceIndex},
+};
 use alloc::vec::Vec;
 
 pub struct IdVec<K: Id, V> {
@@ -93,18 +96,16 @@ impl<K: Id, V> DerefMut for IdVec<K, V> {
     }
 }
 
-impl<K: Id, V> Index<K> for IdVec<K, V> {
-    type Output = V;
-    #[track_caller]
-    fn index(&self, index: K) -> &Self::Output {
-        &self.raw[index.index()]
+impl<K: Id, V, I: IdSliceIndex<K, V>> Index<I> for IdVec<K, V> {
+    type Output = I::Output;
+    fn index(&self, index: I) -> &Self::Output {
+        index.index(self)
     }
 }
 
-impl<K: Id, V> IndexMut<K> for IdVec<K, V> {
-    #[track_caller]
-    fn index_mut(&mut self, index: K) -> &mut Self::Output {
-        &mut self.raw[index.index()]
+impl<K: Id, V, I: IdSliceIndex<K, V>> IndexMut<I> for IdVec<K, V> {
+    fn index_mut(&mut self, index: I) -> &mut Self::Output {
+        index.index_mut(self)
     }
 }
 
