@@ -20,6 +20,9 @@ fn test_vec() {
     blocks.values().eq(&["a", "b", "c"]);
 
     assert_eq!(&blocks.values().copied().collect::<IdVec<TestId, _>>(), &blocks);
+
+    let range = blocks.extend(["d", "e", "f"]);
+    assert_eq!(&blocks[range], &["d", "e", "f"]);
 }
 
 #[test]

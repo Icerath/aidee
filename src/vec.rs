@@ -1,7 +1,7 @@
 use core::{
     fmt,
     marker::PhantomData,
-    ops::{Deref, DerefMut, Index, IndexMut},
+    ops::{Deref, DerefMut, Index, IndexMut, Range},
 };
 
 use crate::{
@@ -36,6 +36,12 @@ impl<K: Id, V> IdVec<K, V> {
     }
     pub const fn capacity(&self) -> usize {
         self.raw.capacity()
+    }
+    pub fn extend<I: IntoIterator<Item = V>>(&mut self, iter: I) -> Range<K> {
+        let start_len = self.len_id();
+        self.raw.extend(iter);
+        let end_len = self.len_id();
+        start_len..end_len
     }
     pub fn push(&mut self, value: V) -> K {
         let id = self.len_id();
