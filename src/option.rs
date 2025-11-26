@@ -1,6 +1,9 @@
+use core::fmt;
+
 use crate::Id;
 
 /// Temporary type until there is support for custom niches
+#[derive(Clone, Copy, PartialEq, Eq, Hash)]
 pub struct IdOption<K: Id>(K);
 
 impl<K: Id> IdOption<K> {
@@ -28,5 +31,11 @@ impl<K: Id> From<Option<K>> for IdOption<K> {
             Some(id) => Self(id),
             None => Self::NONE,
         }
+    }
+}
+
+impl<K: fmt::Debug + Id> fmt::Debug for IdOption<K> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        Option::from(*self).fmt(f)
     }
 }
