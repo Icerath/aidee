@@ -40,6 +40,12 @@ impl<K: Id> From<Option<K>> for IdOption<K> {
     }
 }
 
+impl<K: Id + PartialEq> From<IdOption<K>> for Option<K> {
+    fn from(value: IdOption<K>) -> Self {
+        if value.is_some() { Some(value.0) } else { None }
+    }
+}
+
 impl<K: fmt::Debug + Id> fmt::Debug for IdOption<K> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         Option::from(*self).fmt(f)
