@@ -17,6 +17,9 @@ impl<K: Id + PartialEq> IdOption<K> {
     pub fn get(self) -> Option<K> {
         if self.0 == K::INVALID_REPR { None } else { Some(self.0) }
     }
+    pub fn is_none(&self) -> bool {
+        self.0 == K::INVALID_REPR
+    }
 }
 
 impl<K: Id> From<K> for IdOption<K> {
