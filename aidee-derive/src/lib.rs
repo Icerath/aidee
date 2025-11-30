@@ -16,11 +16,11 @@ pub fn derive_id(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
             const INVALID_REPR: Self = Self(#field::INVALID_REPR);
             #[track_caller]
             fn from_index(index: usize) -> Self {
-                Self(<#field>::from_index(index))
+                Self(aidee::Id::from_index(index))
             }
             #[track_caller]
             fn index(self) -> usize {
-                self.0.index()
+                aidee::Id::index(self.0)
             }
         }
         #[allow(clippy::expl_impl_clone_on_copy)]
