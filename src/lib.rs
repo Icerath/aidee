@@ -30,6 +30,7 @@ pub trait Id: Copy {
     const INVALID_REPR: Self;
     fn from_index(index: usize) -> Self;
     fn index(self) -> usize;
+    #[expect(clippy::return_self_not_must_use, reason = "I'm just not sure yet")]
     fn incr(&mut self) -> Self {
         let id = *self;
         *self = Self::from_index(self.index() + 1);
@@ -50,7 +51,9 @@ impl Id for usize {
 impl Id for u32 {
     const INVALID_REPR: Self = Self::MAX;
 
+    #[expect(clippy::cast_possible_truncation)]
     fn from_index(index: usize) -> Self {
+        debug_assert!(Self::try_from(index).is_ok());
         index as _
     }
     fn index(self) -> usize {
@@ -60,7 +63,9 @@ impl Id for u32 {
 
 impl Id for u16 {
     const INVALID_REPR: Self = Self::MAX;
+    #[expect(clippy::cast_possible_truncation)]
     fn from_index(index: usize) -> Self {
+        debug_assert!(Self::try_from(index).is_ok());
         index as _
     }
     fn index(self) -> usize {
@@ -71,7 +76,9 @@ impl Id for u16 {
 impl Id for u8 {
     const INVALID_REPR: Self = Self::MAX;
 
+    #[expect(clippy::cast_possible_truncation)]
     fn from_index(index: usize) -> Self {
+        debug_assert!(Self::try_from(index).is_ok());
         index as _
     }
     fn index(self) -> usize {

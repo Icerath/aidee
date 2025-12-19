@@ -14,25 +14,36 @@ pub struct IdSlice<K: Id, V> {
 }
 
 impl<K: Id, V> IdSlice<K, V> {
+    #[must_use]
     pub const fn from_slice(slice: &[V]) -> &Self {
         unsafe { core::mem::transmute(slice) }
     }
+    #[must_use]
     pub const fn from_mut_slice(slice: &mut [V]) -> &mut Self {
         unsafe { core::mem::transmute(slice) }
     }
     #[cfg(feature = "alloc")]
+    #[must_use]
     pub const fn from_boxed_slice(slice: Box<[V]>) -> Box<Self> {
         unsafe { core::mem::transmute(slice) }
     }
+    #[must_use]
     pub fn get<I: IdSliceIndex<K, V>>(&self, index: I) -> Option<&I::Output> {
         index.get(self)
     }
+    #[must_use]
     pub fn get_mut<I: IdSliceIndex<K, V>>(&mut self, index: I) -> Option<&mut I::Output> {
         index.get_mut(self)
     }
+    #[must_use]
+    pub fn len_id(&self) -> K {
+        K::from_index(self.raw.len())
+    }
+    #[must_use]
     pub const fn len(&self) -> usize {
         self.raw.len()
     }
+    #[must_use]
     pub const fn is_empty(&self) -> bool {
         self.raw.is_empty()
     }
@@ -50,9 +61,6 @@ impl<K: Id, V> IdSlice<K, V> {
     }
     pub fn iter_mut(&mut self) -> impl Iterator<Item = (K, &mut V)> {
         self.raw.iter_mut().enumerate().map(|(i, v)| (K::from_index(i), v))
-    }
-    pub fn len_id(&self) -> K {
-        K::from_index(self.raw.len())
     }
 }
 

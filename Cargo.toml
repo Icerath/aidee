@@ -3,6 +3,9 @@ name = "aidee"
 version = "0.1.0"
 edition = "2024"
 
+[lints.clippy]
+pedantic = "warn"
+
 [dependencies]
 aidee-derive = { version = "0.1", path = "./aidee-derive" }
 bitvec = { version = "1.0.1", default-features = false }

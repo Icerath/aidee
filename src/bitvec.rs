@@ -16,12 +16,14 @@ impl<K: Id> Default for IdBitVec<K> {
 }
 
 impl<K: Id> IdBitVec<K> {
+    #[must_use]
     pub const fn new() -> Self {
         Self::from_bitvec(BitVec::EMPTY)
     }
     const fn from_bitvec(bitvec: BitVec) -> Self {
         Self { raw: bitvec, _marker: PhantomData }
     }
+    #[must_use]
     pub fn with_capacity(capacity: usize) -> Self {
         Self::from_bitvec(BitVec::with_capacity(capacity))
     }
@@ -51,12 +53,15 @@ impl<K: Id> IdBitVec<K> {
     pub fn clear(&mut self) {
         self.raw.clear();
     }
+    #[must_use]
     pub fn len_id(&self) -> K {
         K::from_index(self.raw.len())
     }
+    #[must_use]
     pub fn len(&self) -> usize {
         self.raw.len()
     }
+    #[must_use]
     pub fn is_empty(&self) -> bool {
         self.raw.is_empty()
     }
