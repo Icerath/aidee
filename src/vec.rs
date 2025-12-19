@@ -141,4 +141,7 @@ impl<K: Id, V: Clone> Clone for IdVec<K, V> {
     fn clone(&self) -> Self {
         Self::from_vec(self.raw.clone())
     }
+    fn clone_from(&mut self, source: &Self) {
+        self.raw.clone_from(&source.raw);
+    }
 }
