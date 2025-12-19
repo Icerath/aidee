@@ -110,12 +110,14 @@ impl<K: Id, V> DerefMut for IdVec<K, V> {
 
 impl<K: Id, V, I: IdSliceIndex<K, V>> Index<I> for IdVec<K, V> {
     type Output = I::Output;
+    #[track_caller]
     fn index(&self, index: I) -> &Self::Output {
         index.index(self)
     }
 }
 
 impl<K: Id, V, I: IdSliceIndex<K, V>> IndexMut<I> for IdVec<K, V> {
+    #[track_caller]
     fn index_mut(&mut self, index: I) -> &mut Self::Output {
         index.index_mut(self)
     }

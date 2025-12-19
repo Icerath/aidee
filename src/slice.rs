@@ -66,12 +66,14 @@ impl<K: Id, V> IdSlice<K, V> {
 
 impl<K: Id, V, I: IdSliceIndex<K, V>> Index<I> for IdSlice<K, V> {
     type Output = I::Output;
+    #[track_caller]
     fn index(&self, index: I) -> &Self::Output {
         index.index(self)
     }
 }
 
 impl<K: Id, V, I: IdSliceIndex<K, V>> IndexMut<I> for IdSlice<K, V> {
+    #[track_caller]
     fn index_mut(&mut self, index: I) -> &mut Self::Output {
         index.index_mut(self)
     }
