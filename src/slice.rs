@@ -135,3 +135,22 @@ impl<K: Id, V> IdSliceIndex<K, V> for Range<K> {
         &mut slice.raw[self.start.index()..self.end.index()]
     }
 }
+
+#[cfg(feature = "nightly")]
+impl<K: Id, V> IdSliceIndex<K, V> for core::range::Range<K> {
+    type Output = [V];
+    fn get(self, slice: &IdSlice<K, V>) -> Option<&[V]> {
+        slice.raw.get(self.start.index()..self.end.index())
+    }
+    fn get_mut(self, slice: &mut IdSlice<K, V>) -> Option<&mut Self::Output> {
+        slice.raw.get_mut(self.start.index()..self.end.index())
+    }
+    #[track_caller]
+    fn index(self, slice: &IdSlice<K, V>) -> &Self::Output {
+        &slice.raw[self.start.index()..self.end.index()]
+    }
+    #[track_caller]
+    fn index_mut(self, slice: &mut IdSlice<K, V>) -> &mut Self::Output {
+        &mut slice.raw[self.start.index()..self.end.index()]
+    }
+}

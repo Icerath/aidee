@@ -13,3 +13,4 @@ bitvec = { version = "1.0.1", default-features = false }
 [features]
 default = ["alloc"]
 alloc = ["bitvec/alloc"]
+nightly = []

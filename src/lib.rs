@@ -1,5 +1,6 @@
 //! A collection of types that use newtype integer
 
+#![cfg_attr(feature = "nightly", feature(new_range_api))]
 #![no_std]
 
 #[cfg(feature = "alloc")]
