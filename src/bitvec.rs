@@ -5,7 +5,7 @@ use crate::Id;
 use bitvec::vec::BitVec;
 
 pub struct IdBitVec<K: Id> {
-    raw: BitVec,
+    pub raw: BitVec,
     _marker: crate::Boo<K>,
 }
 
