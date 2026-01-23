@@ -76,12 +76,12 @@ impl<K: Id> IdBitVec<K> {
     /// Tests if there is at least one bit set to `1`
     #[must_use]
     pub fn any(&self) -> bool {
-        self.count_zeros() > 0
+        self.raw.any()
     }
     /// Tests if all bits are set to `1`
     #[must_use]
     pub fn all(&self) -> bool {
-        self.count_zeros() == self.len()
+        self.raw.all()
     }
     pub fn ids(&self) -> impl Iterator<Item = K> + use<K> {
         (0..self.len()).map(K::from_index)
