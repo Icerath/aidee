@@ -20,6 +20,10 @@ impl<K: Id> IdBitVec<K> {
     pub const fn new() -> Self {
         Self::from_bitvec(BitVec::EMPTY)
     }
+    #[must_use]
+    pub fn repeat(bit: bool, len: usize) -> Self {
+        Self::from_bitvec(BitVec::repeat(bit, len))
+    }
     const fn from_bitvec(bitvec: BitVec) -> Self {
         Self { raw: bitvec, _marker: PhantomData }
     }
