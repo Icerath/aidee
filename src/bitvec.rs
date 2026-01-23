@@ -69,6 +69,11 @@ impl<K: Id> IdBitVec<K> {
     pub fn is_empty(&self) -> bool {
         self.raw.is_empty()
     }
+    /// Tests if there is at least one bit set to `1`
+    #[must_use]
+    pub fn any(&self) -> bool {
+        self.raw.any()
+    }
     pub fn ids(&self) -> impl Iterator<Item = K> + use<K> {
         (0..self.len()).map(K::from_index)
     }
