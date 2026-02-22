@@ -31,6 +31,17 @@ impl<K: Id, V> IdVec<K, V> {
         Self { raw: vec, _marker: PhantomData }
     }
     #[must_use]
+    pub fn repeat(value: V, len: K) -> Self
+    where
+        V: Clone,
+    {
+        Self::from_vec(alloc::vec![value; len.index()])
+    }
+    #[must_use]
+    pub fn repeat_with(mut f: impl FnMut(K) -> V, len: K) -> Self {
+        (0..len.index()).map(|i| f(K::from_index(i))).collect()
+    }
+    #[must_use]
     pub fn with_capacity(capacity: usize) -> Self {
         Self::from_vec(Vec::with_capacity(capacity))
     }
