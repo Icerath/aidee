@@ -47,6 +47,15 @@ impl<K: Id, V> IdSlice<K, V> {
     pub const fn is_empty(&self) -> bool {
         self.raw.is_empty()
     }
+    pub fn last_id(&self) -> Option<K> {
+        self.len().checked_sub(1).map(K::from_index)
+    }
+    pub fn last(&self) -> Option<&V> {
+        self.raw.last()
+    }
+    pub fn last_mut(&mut self) -> Option<&mut V> {
+        self.raw.last_mut()
+    }
     pub fn ids(&self) -> impl Iterator<Item = K> + use<K, V> {
         (0..self.raw.len()).map(K::from_index)
     }
